@@ -56,7 +56,12 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void DutyCycle(float Duty, int Channel){
+	uint16_t AutoReload, SetDutyCycle;
+	AutoReload = __HAL_TIM_GET_AUTORELOAD(&htim2); //read ARR
+	SetDutyCycle=AutoReload * Duty/100.0;
+	__HAL_TIM_SET_COMPARE(&htim2, Channel, SetDutyCycle); //set CCR
+}
 /* USER CODE END 0 */
 
 /**
@@ -90,6 +95,14 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+
+  DutyCycle(25, TIM_CHANNEL_1);
+  DutyCycle(50, TIM_CHANNEL_2);
+  DutyCycle(75, TIM_CHANNEL_3);
 
   /* USER CODE END 2 */
 

@@ -122,4 +122,6 @@ void DutyCycle(float Duty, int Channel){
 * Use proper trigger settings
 * Check probe attenuation
 
+### Demo Video
+https://youtu.be/3cer_WQ9OAM
 
